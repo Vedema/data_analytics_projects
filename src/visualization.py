@@ -178,10 +178,10 @@ def plot_boxplot(df: pd.DataFrame, columns: List[str],
     ---------
     >>> plot_boxplot(df, ['age', 'salary', 'experience'])
     """
-    plt.figure(figsize=figsize)
-    df[columns].boxplot()
-    plt.ylabel('Value')
-    plt.title('Box Plots')
+    fig, ax = plt.subplots(figsize=figsize)
+    df[columns].boxplot(ax=ax)
+    ax.set_ylabel('Value')
+    ax.set_title('Box Plots')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     plt.show()

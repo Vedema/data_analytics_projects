@@ -116,8 +116,8 @@ def encode_categorical(df: pd.DataFrame, columns: List[str],
         df = pd.get_dummies(df, columns=columns, drop_first=True)
     elif method == 'label':
         from sklearn.preprocessing import LabelEncoder
-        le = LabelEncoder()
         for col in columns:
+            le = LabelEncoder()
             df[col] = le.fit_transform(df[col].astype(str))
     else:
         raise ValueError(f"Unsupported encoding method: {method}")
