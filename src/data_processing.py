@@ -77,8 +77,10 @@ def handle_missing_values(df: pd.DataFrame, strategy: str = 'drop',
     elif strategy == 'mode':
         for col in columns:
             df[col].fillna(df[col].mode()[0] if not df[col].mode().empty else None, inplace=True)
-    elif strategy in ['ffill', 'bfill']:
-        df[columns] = df[columns].fillna(method=strategy)
+    elif strategy == 'ffill':
+        df[columns] = df[columns].ffill()
+    elif strategy == 'bfill':
+        df[columns] = df[columns].bfill()
     else:
         raise ValueError(f"Unsupported strategy: {strategy}")
     
