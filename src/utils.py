@@ -104,7 +104,11 @@ def remove_outliers(df: pd.DataFrame, column: str, method: str = 'iqr',
         return df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
     
     elif method == 'zscore':
-        z_scores = np.abs((df[column] - df[column].mean()) / df[column].std())
+        std = df[column].std()
+        if std == 0:
+            # All values are identical, no outliers to remove
+            return df
+        z_scores = np.abs((df[column] - df[column].mean()) / std)
         return df[z_scores < threshold]
     
     else:
